@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.txf.mapper.UserMapper">
+   <select id="findAll" resultType="com.txf.pojo.User">
+     select * from employee;
+   </select>
+    <select id="findByName" parameterType="com.txf.pojo.User"  resultType="com.txf.pojo.User">
+        select * from employee where 1=1
+        <if test="#{name!=null and name!=''}">
+            and  name like '%${name}%'
+        </if>
+    </select>
+    <delete id="delByid" parameterType="java.lang.Integer">
+        delete  from employee where id=#{id}
+    </delete>
+
+    <select id="findByNames" parameterType="com.txf.pojo.User" resultType="com.txf.pojo.User">
+        select id,name,gender,birthday from employee where 1=1
+        <if test="#{name!=null and name!=''}">
+            and name like '%${name}%'
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.txf.pojo.User" >
+        insert into employee (name,gender,birthday) values(#{name},#{gender},#{birthday})
+    </insert>
+    <select id="selectById" parameterType="com.txf.pojo.User" resultType="com.txf.pojo.User">
+        select id,name,gender,birthday from employee where  id=#{id}
+    </select>
+    <update id="updateById" parameterType="com.txf.pojo.User">
+        update employee set name=#{name},gender=#{gender},birthday=#{birthday}  where id=#{id};
+    </update>
+</mapper>
